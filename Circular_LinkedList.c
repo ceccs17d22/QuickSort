@@ -1,121 +1,192 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 struct node
 {
     int data;
     struct node *link;
 };
-
 void main()
 {
-    int key,x,cho,flag;
-    struct node *head,*temp,*ptr,*ptr1;
+    int key,d,choice,count;
+    struct node *head,*ptr,*ptr1,*temp;
     head=(struct node*)malloc(sizeof(struct node));
-    head->data=NULL;
+    head->data=0;
     head->link=head;
-
     do
     {
         ptr=head;
-        printf("\nMENU\n1.Insertion (end)\n2.Insertion (in b/w)\n3.Deletion\n4.Search\n5.Display\n6.Exit\nEnter choice:");
-        scanf("%d",&cho);
-        if(cho==1)
+        printf("\n\nMENU\n1.Insert at first\n2.Insert at End\n3.Insertion after\n4.Search\n5.delete first\n6.Delete last\n7.Delete an element\n8.Delete all\n9.Print\n0.Exit\nEnter your choice:");
+        scanf("%d",&choice);
+        if (choice==1)
         {
+            printf("Enter the element");
+            scanf("%d",&d);
+            if(ptr->link==head)
+            {
+                temp=(struct node*)malloc(sizeof(struct node));
+                head->link=temp;
+                temp->link=head;
+                temp->data=d;
+            }
+            else
+            {
+                temp=(struct node*)malloc(sizeof(struct node));
+                temp->link=ptr->link;
+                ptr->link=temp;
+                temp->data=d;
+            }
+        }
+        else if(choice==2)
+        {
+            
             while(ptr->link!=head)
             {
                 ptr=ptr->link;
             }
+            
+            if(ptr->link==head)
+            {
+            printf("Enter the element");
+            scanf("%d",&d);
             temp=(struct node*)malloc(sizeof(struct node));
-            ptr->link=temp;
-            printf("Enter data: ");
-            scanf("%d",&x);
-            temp->data=x;
             temp->link=head;
+            ptr->link=temp;
+            temp->data=d;
+            }
         }
-        else if(cho==2)
+        else if(choice==3)
         {
-            printf("Enter key: ");
+            printf("Enter the key");
             scanf("%d",&key);
             ptr=ptr->link;
+            count=0;
             while(ptr!=head)
             {
                 if(ptr->data==key)
                 {
+                    printf("Enter the element");
+                    scanf("%d",&d);
                     temp=(struct node*)malloc(sizeof(struct node));
                     ptr1=ptr->link;
                     ptr->link=temp;
                     temp->link=ptr1;
-                    printf("Enter data: ");
-                    scanf("%d",&x);
-                    temp->data=x;
+                    temp->data=d;
+                    count+=1;
 
                 }
                 ptr=ptr->link;
+                
             }
+            if(count==0)
+            {
+                printf("Element not found");
+            }
+
         }
-        else if(cho==3)
+        else if(choice==4)
         {
-            if(ptr->link==NULL)
-            {
-                printf("List is empty!!!");
-            }
-            else
-            {
-                printf("Enter key: ");
-                scanf("%d",&key);
-                flag=0;
-                while(ptr->link!=head)
-                {
-                    ptr1=ptr;
-                    ptr=ptr->link;
-                    if(ptr->data==key)
-                    {
-                        ptr1->link=ptr->link;
-                        free(ptr);
-                        flag+=1;
-                    }
-                }
-                if(flag==0)
-                {
-                    printf("Key not found!!!");
-                }
-            }
-        }
-        else if(cho==4)
-        {
-            if(ptr->link==head)
-            {
-                printf("Empty list!!!");
-            }
             ptr=ptr->link;
-            flag=0;
-            printf("Enter key: ");
+            printf("Enter the element");
             scanf("%d",&key);
+            count=0;
             while(ptr!=head)
             {
                 if(ptr->data==key)
                 {
-                    printf("\nElement found...");
-                    flag+=1;
+                    printf("Element found");
+                    count+=1;
                 }
                 ptr=ptr->link;
             }
-            if(flag==0)
+            if(count==0)
             {
-                printf("\nElement not found...");
+                printf("Element not found");
             }
         }
-        else if(cho==5)
+        else if(choice==5)
         {
+            ptr=ptr->link;
+            ptr1=ptr->link;
+            head->link=ptr1;
+            free(ptr);
+
+
+        }
+        else if(choice==6)
+        {
+            while(ptr->link!=head)
+            {
+                ptr1=ptr;
+                ptr=ptr->link;
+                
+            }
+            ptr1->link=head;
+            free(ptr);
+            
+
+        }
+        else if(choice==7)
+        {
+            temp=ptr;
+            ptr=ptr->link;
+            printf("Enter the element");
+            scanf("%d",&key);
+            while(ptr!=head)
+            {
+                if(ptr->data!=key)
+                {
+                    temp=ptr;
+                }
+                else
+                {
+                    ptr1=ptr->link;
+                    temp->link=ptr1;
+                    free(ptr);
+                    count+=1;
+                }
+                ptr=ptr->link;
+            }
+            if(count==0)
+            {
+                printf("Element not found");
+            }
+        }
+        else if(choice==8)
+        {
+            temp=ptr;
             ptr=ptr->link;
             while(ptr!=head)
             {
-                printf("%d -> ",ptr->data);
+                ptr1=ptr;
                 ptr=ptr->link;
+                
+                
+                free(ptr1);
             }
-            temp=ptr->link;
-            printf("%d",temp->data);
+            temp->link=head;
+
         }
-    }while(cho==1 || cho==2 || cho==3 || cho==4 || cho==5);
+        else if(choice==9)
+        {
+            ptr=ptr->link;
+            if(ptr==head)
+            {
+                printf("Empty list!!");
+            }
+            else
+            {
+                printf("Header ->");
+                while(ptr!=head)
+                {
+                    printf("%d ->",ptr->data);
+                    ptr=ptr->link;
+                }
+                printf("Header");
+
+            }
+           
+        }
+
+    }
+    while(choice!=0);
 }
