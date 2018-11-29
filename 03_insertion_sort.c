@@ -1,4 +1,6 @@
-
+// Goutham G
+// S3D
+// 22
 
 #include <stdio.h> 
 #include <math.h> 
