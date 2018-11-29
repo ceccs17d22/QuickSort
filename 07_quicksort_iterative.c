@@ -1,3 +1,8 @@
+// Goutham G
+// S3D
+// 22
+
+
 #include <stdio.h>
 
 void swap(int *a, int *b) {
