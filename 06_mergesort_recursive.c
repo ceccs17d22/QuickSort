@@ -1,3 +1,8 @@
+// Goutham G
+// S3D
+// 22
+
+
 #include <stdio.h>
 
 int merge(int a[], int l, int m, int r) {
